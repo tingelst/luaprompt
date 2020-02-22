@@ -21,13 +21,14 @@
  * SOFTWARE.
  */
 
+
 #include <string.h>
 #include <unistd.h>
 
 #include <lualib.h>
 #include <lauxlib.h>
 
-#include "prompt.h"
+#include "luaprompt/prompt.h"
 
 #if LUA_VERSION_NUM == 501
 #define LUA_OK 0
@@ -147,7 +148,7 @@ static int prompt_newindex (lua_State *L)
     return 0;
 }
 
-int luaopen_prompt(lua_State* L) {
+int luaopen_libprompt(lua_State* L) {
     static const luaL_Reg functions[] = {
         {"describe", describe},
         {"call", call},

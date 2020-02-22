@@ -24,23 +24,45 @@
 #ifndef _PROMPT_H_
 #define _PROMPT_H_
 
-#include <lualib.h>
+#if defined(__cplusplus)
+extern "C" {
+#endif
+
 #include <lauxlib.h>
+#include <lualib.h>
+
+#include "luaprompt/visibility_control.h"
 
 #define LUAP_VERSION "0.7"
 
+LUAPROMPT_PUBLIC
 void luap_setprompts(lua_State *L, const char *single, const char *multi);
+LUAPROMPT_PUBLIC
 void luap_sethistory(lua_State *L, const char *file);
+LUAPROMPT_PUBLIC
 void luap_setname(lua_State *L, const char *name);
+LUAPROMPT_PUBLIC
 void luap_setcolor(lua_State *L, int enable);
 
+LUAPROMPT_PUBLIC
 void luap_getprompts(lua_State *L, const char **single, const char **multi);
+LUAPROMPT_PUBLIC
 void luap_gethistory(lua_State *L, const char **file);
+LUAPROMPT_PUBLIC
 void luap_getcolor(lua_State *L, int *enabled);
+LUAPROMPT_PUBLIC
 void luap_getname(lua_State *L, const char **name);
 
+LUAPROMPT_PUBLIC
 void luap_enter(lua_State *L);
-char *luap_describe (lua_State *L, int index);
-int luap_call (lua_State *L, int n);
+LUAPROMPT_PUBLIC
+char *luap_describe(lua_State *L, int index);
+LUAPROMPT_PUBLIC
+int luap_call(lua_State *L, int n);
+
+
+#if defined(__cplusplus)
+}
+#endif
 
 #endif

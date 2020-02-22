@@ -21,6 +21,7 @@
  * SOFTWARE.
  */
 
+
 #ifdef HAVE_CONFIG_H
 #include <config.h>
 #endif
@@ -43,7 +44,7 @@
 #include <lualib.h>
 #include <lauxlib.h>
 
-#include "prompt.h"
+#include "luaprompt/prompt.h"
 
 #if LUA_VERSION_NUM == 501
 #define lua_pushglobaltable(L) lua_pushvalue (L, LUA_GLOBALSINDEX)
