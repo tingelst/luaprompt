@@ -1,4 +1,4 @@
-luaprompt
+# luaprompt
 
 Copyright (C) 2012-2015 Dimitris Papavasileiou <dpapavas@gmail.com>
 
@@ -32,27 +32,26 @@ luaprompt features:
 
 * Color highlighting of error messages and variable printouts.
 
-Installation
-============
+## Installation
 
 luaprompt is available as a rock.  It can be installed via LuaRocks with:
-
+```bash
     luarocks install luaprompt
-
+```
 Alternatively, you can customize the behavior as described in the
 "Configuration" section.  Start by downloading and unpacking the
 sources with:
-
+```bash
     luarocks unpack luaprompt
-
+```
 Change to the directory it was downloaded to, edit the rockspec file
 to add, remove or change the default configuration macros, and then
 build and install with:
-
+```bash
     luarocks make <rockspec-file>
+```
 
-Standalone usage
-================
+## Standalone usage
 
 Besides the luaprompt module, the rock contains a standalone
 interpreter based on luaprompt. It tries to mimic the standard Lua
@@ -62,8 +61,7 @@ supported) while providing the extra set of features described above.
 To invoke the interpreter, simply type "luap" instead of "lua" on the
 command line.
 
-The prompt module
-=================
+## The prompt module
      
 Using the module is pretty straightforward, as it essentially wraps
 the calls described in the section on embedding luaprompt below.  This
@@ -71,6 +69,7 @@ functionality is available, either in variables which can be set or
 queried, or in Lua functions.  An example session, which covers
 everything and should be self-explanatory, follows:
 
+```lua
 > prompt = require "prompt"
 > prompt.colorize = true
 > prompt.name = "myprompt"
@@ -90,11 +89,13 @@ Stack trace:
 
 % ^D 
 >
+```
 
 One can also use just the pretty-printer of luaprompt, by calling
 prompt.describe, which returns a string with a pretty print-out of the
 argument.  For example:
 
+```lua
 > =prompt.describe(coroutine)
 { 
   create = <function: 0x41a8b0>,
@@ -104,9 +105,9 @@ argument.  For example:
   resume = <function: 0x41a9e0>,
   status = <function: 0x41a770>,
 }
+```
 
-Configuration
-=============
+## Configuration
 
 You can customize luaprompts command line interface, as it is based on
 GNU Readline.  This includes the ability to change behavior, such as
@@ -178,8 +179,7 @@ require).
 To make the auto-completer ask for confirmation before loading or
 globalizing a module, define CONFIRM_MODULE_LOAD.
 
-Embedded Usage
-==============
+## Embedded Usage
 
 To embed luaprompt into a host application, simply compile and link
 prompt.c with your sources.  A POSIX environment is assumed and GNU
@@ -190,51 +190,63 @@ environment doesn't support the TIOCGWINSZ ioctl call to get the
 terminal width.
 
 The API is very simple:
-
+```c
 void luap_enter (lua_State *L)
+```
 Call this to begin an interactive session.  The session can be
 terminated with Ctrl-D.
 
+```c
 void luap_setname (lua_State *L, const char *name)
+```
 Set the name of the application.  This is basically the chunk name
 displayed with error messages.  The default program name is "lua".
 
+```c
 void luap_setprompts (lua_State *L, const char *single, char *multi)
+```
 Provide two prompts, one for single-line and one for multi-line
 input. The defaults prompts are "> " and ">> ".
 
-void luap_sethistory (lua_State *L, const char *file) Set the file to
+```c
+void luap_sethistory (lua_State *L, const char *file) 
+```
+Set the file to
 be used to perist the command history across sessions.  If this
 function isn't called the command history is lost on session exit.
 Note that the provided name is used as-is, that is, it is not expanded
 as if it was entered at the shell so you cannot use a string of the
 form "~/.lua_history" for example.
-
+```c
 void luap_setcolor (lua_State *L, int enable)
+```
 Setting enable to zero disables color output.  Color output is enabled
 by default if the output has not been redirected to a file or pipe.
 
 There are also matching luap_get* calls, which work much like you'd
 expect them to:
-
+```c
 void luap_getprompts(lua_State *L, const char **single, const char **multi)
 void luap_gethistory(lua_State *L, const char **file)
 void luap_getcolor(lua_State *L, int *enabled)
 void luap_getname(lua_State *L, const char **name)
-
+```
 In addition to the above the following calls, which are meant for
 internal use can be used by the host application as well if required.
 
+```c
 char *luap_describe (lua_State *L, int index)
+```
 Returns a string with a human-readable serialization of the value at
 the specified index.
 
+```c
 int luap_call (lua_State *L, int n)
+```
 Calls a function with n arguments and provides a stack trace on error.
 This is equivalent to calling lua_pcall with LUA_MULTRET.
 
-License
-=======
+## License
 
 luaprompt is released under the terms and conditions of the MIT/X11
 license.  See the LICENSE file for details.

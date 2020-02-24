@@ -54,6 +54,8 @@ target_compile_definitions(prompt
 # appropriate when building the dll but not consuming it.
 target_compile_definitions(prompt PRIVATE "LUAPROMPT_BUILDING_LIBRARY")
 
+ament_environment_hooks(env_hook/luaprompt.sh.in)
+
 install(DIRECTORY include/ DESTINATION include)
 install(TARGETS prompt
         EXPORT export_${PROJECT_NAME}
